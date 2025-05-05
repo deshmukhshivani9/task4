@@ -1,0 +1,59 @@
+import tkinter as tk
+import random
+
+# Function to determine winner
+def determine_winner(user_choice):
+    # List of choices
+    choices = ["Rock", "Paper", "Scissors"]
+    # Computer picks a random choice
+    computer_choice = random.choice(choices)
+    
+    # Determine the result
+    if user_choice == computer_choice:
+        result = "It's a Tie!"
+    elif (user_choice == "Rock" and computer_choice == "Scissors") or \
+         (user_choice == "Paper" and computer_choice == "Rock") or \
+         (user_choice == "Scissors" and computer_choice == "Paper"):
+        result = "You Win!"
+    else:
+        result = "Computer Wins!"
+
+    # Update the result label
+    result_label.config(text=f"Your Choice: {user_choice}\nComputer's Choice: {computer_choice}\n{result}")
+
+# Create the main window
+root = tk.Tk()
+root.title("Rock Paper Scissors Game")
+root.geometry("500x400")
+root.config(bg="#f7f7f7")  # Light background for the window
+
+# Title label
+title_label = tk.Label(root, text="Rock Paper Scissors", font=("Arial", 18, "bold"), bg="#f7f7f7", fg="#333333")
+title_label.pack(pady=20)
+
+# Result label (this will be updated after the game)
+result_label = tk.Label(root, text="", font=("Arial", 14), bg="#f7f7f7", fg="#333333")
+result_label.pack(pady=20)
+
+# Function to handle user choice
+def user_choice(choice):
+    determine_winner(choice)
+
+# Buttons for user choices with light colors
+button_frame = tk.Frame(root, bg="#f7f7f7")
+button_frame.pack(pady=20)
+
+# Styling buttons
+button_style = {"width": 15, "height": 2, "font": ("Arial", 12, "bold"), "bd": 5, "relief": "raised", "fg": "#333333"}
+
+rock_button = tk.Button(button_frame, text="Rock", **button_style, bg="#f5a623", command=lambda: user_choice("Rock"))
+rock_button.grid(row=0, column=0, padx=10)
+
+paper_button = tk.Button(button_frame, text="Paper", **button_style, bg="#50e3c2", command=lambda: user_choice("Paper"))
+paper_button.grid(row=0, column=1, padx=10)
+
+scissors_button = tk.Button(button_frame, text="Scissors", **button_style, bg="#4a90e2", command=lambda: user_choice("Scissors"))
+scissors_button.grid(row=0, column=2, padx=10)
+
+# Run the GUI loop
+root.mainloop()
